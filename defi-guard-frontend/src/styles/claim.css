@@ -1,0 +1,65 @@
+.claim-container {
+  background: linear-gradient(120deg, #f857a6, #ff5858);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.claim-card {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  animation: fadeSlide 0.8s ease-out;
+}
+
+.claim-card h2 {
+  color: #f857a6;
+  margin-bottom: 20px;
+}
+
+.claim-card label {
+  display: block;
+  text-align: left;
+  margin-top: 15px;
+  color: #444;
+  font-weight: 600;
+}
+
+.claim-card input,
+.claim-card textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 8px;
+}
+
+.claim-card textarea {
+  resize: none;
+  height: 80px;
+}
+
+.claim-card button {
+  margin-top: 20px;
+  background: #f857a6;
+  color: white;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.claim-card button:hover {
+  background: #ff5858;
+}
+
+@keyframes fadeSlide {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}

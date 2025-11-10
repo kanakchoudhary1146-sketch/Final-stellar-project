@@ -1,0 +1,101 @@
+.navbar {
+  background: linear-gradient(90deg, #2b5876, #4e4376);
+  padding: 15px 40px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: fadeIn 1s ease-in;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  animation: slideIn 0.7s ease-out;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  color: #ffd700;
+  transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideIn {
+  from {transform: translateX(-30px); opacity: 0;}
+  to {transform: translateX(0); opacity: 1;}
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg);
+  color: var(--text);
+  padding: 15px 40px;
+  transition: background 0.4s, color 0.4s;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+  color: var(--accent);
+}
+
+.theme-toggle {
+  background: var(--accent);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* 🌙 Theme Variables */
+body.light {
+  --bg: #ffffff;
+  --text: #222;
+  --accent: #185a9d;
+  background: #f0f4f9;
+}
+
+body.dark {
+  --bg: #0b1622;
+  --text: #f0f0f0;
+  --accent: #43cea2;
+  background: #0b1622;
+}
