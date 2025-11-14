@@ -1,0 +1,145 @@
+.dashboard-container {
+  width: 100%;
+  padding: 40px;
+  background: #f5f8ff;
+  min-height: 100vh;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.heading {
+  font-size: 34px;
+  font-weight: 800;
+  color: #0c2340;
+}
+
+.connect-btn {
+  background: #2962ff;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.connect-btn:hover {
+  background: #0039cb;
+}
+
+/* STAT CARDS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2962ff;
+}
+
+/* ACTION BUTTONS */
+.actions-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  background: #1a73e8;
+  color: white;
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 600;
+}
+
+.action-btn:hover {
+  background: #0d47a1;
+}
+.insurance-box {
+  background: white;
+  padding: 25px;
+  max-width: 520px;
+  border-radius: 15px;
+  margin-top: 20px;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.07);
+}
+
+.wallet-display {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.wallet-key {
+  color: #2962ff;
+  font-weight: 600;
+}
+
+.wallet-warning {
+  color: red;
+  font-weight: 600;
+}
+
+.input-box {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #b9c4f0;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+.input-box:focus {
+  border-color: #2962ff;
+  outline: none;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #444;
+}
+
+.action-btn {
+  background: #1a73e8;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.action-btn:hover {
+  background: #0d47a1;
+}

@@ -1,41 +1,87 @@
-import React, { useState } from "react";
-import "../styles/buy.css";
+import React, { useState, useEffect } from "react";
+import { buyInsurance } from "../blockchain/soroban";
+import "./dashboard.css"; // Uses your existing styles
 
-const BuyInsurance = () => {
-  const [plan, setPlan] = useState("health");
+export default function BuyInsurance() {
   const [amount, setAmount] = useState("");
+  const [pool, setPool] = useState("Pool A");
+  const [publicKey, setPublicKey] = useState("");
 
-  const handleBuy = (e) => {
+  // Auto-load wallet
+  useEffect(() => {
+    const saved = localStorage.getItem("DEFI_GUARD_WALLET");
+    if (saved) setPublicKey(saved);
+  }, []);
+
+  async function handleBuy(e) {
     e.preventDefault();
-    alert(`Insurance for ${plan} purchased successfully with ${amount} XLM!`);
-  };
+
+    if (!publicKey) {
+      return alert("Please connect wallet first using the Login page.");
+    }
+
+    if (!amount || Number(amount) <= 0) {
+      return alert("Enter a valid insurance amount.");
+    }
+
+    const res = await buyInsurance(publicKey, Number(amount), pool);
+
+    if (res.success) {
+      alert(
+        `Insurance Purchased Successfully!\n\nPool: ${pool}\nAmount: ${amount} XLM`
+      );
+      setAmount("");
+    } else {
+      alert("Transaction Failed: " + (res.error || "Unknown Error"));
+    }
+  }
 
   return (
-    <div className="buy-container">
-      <div className="buy-card">
-        <h2>Buy Insurance</h2>
-        <form onSubmit={handleBuy}>
-          <label>Select Plan:</label>
-          <select value={plan} onChange={(e) => setPlan(e.target.value)}>
-            <option value="health">Health Insurance</option>
-            <option value="vehicle">Vehicle Insurance</option>
-            <option value="travel">Travel Insurance</option>
+    <div className="dashboard-wrap fadeIn">
+      <h2 className="heading">Buy Insurance</h2>
+
+      <div className="card smooth-card">
+        {/* Display Wallet */}
+        <p className="wallet-display">
+          <strong>Wallet:</strong>{" "}
+          {publicKey ? (
+            <span className="wallet-key">{publicKey}</span>
+          ) : (
+            <span className="wallet-warning">Not Connected</span>
+          )}
+        </p>
+
+        <form onSubmit={handleBuy} className="form-column">
+
+          {/* Pool Selection */}
+          <label className="form-label">Choose Insurance Pool</label>
+          <select
+            value={pool}
+            onChange={(e) => setPool(e.target.value)}
+            className="input-box"
+          >
+            <option value="Pool A">Pool A — Low Risk</option>
+            <option value="Pool B">Pool B — Moderate Risk</option>
+            <option value="Pool C">Pool C — High Risk</option>
           </select>
 
-          <label>Amount (XLM):</label>
+          {/* Amount Input */}
+          <label className="form-label">Insurance Amount (XLM)</label>
           <input
-            type="number"
+            className="input-box"
+            placeholder="Example: 150"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount"
-            required
+            type="number"
+            min="1"
           />
 
-          <button type="submit">Buy Now</button>
+          {/* Submit Button */}
+          <button className="action-btn" style={{ marginTop: 20 }}>
+            Purchase Insurance
+          </button>
         </form>
       </div>
     </div>
   );
-};
-
-export default BuyInsurance;
+}

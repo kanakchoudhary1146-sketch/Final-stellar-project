@@ -1,38 +1,32 @@
 import React, { useState } from "react";
-import "../styles/login.css";
-import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [isRegister, setIsRegister] = useState(false);
-  const navigate = useNavigate();
+export default function Login() {
+  const [pk, setPk] = useState(localStorage.getItem("DEFI_GUARD_FAKE_PK") || "");
 
-  const handleSubmit = (e) => {
+  const save = (e) => {
     e.preventDefault();
-    navigate("/dashboard");
+    if (!pk) return alert("Enter public key to simulate logged in user.");
+    localStorage.setItem("DEFI_GUARD_FAKE_PK", pk);
+    alert("Saved public key for local testing.");
+  };
+
+  const logout = () => {
+    localStorage.removeItem("DEFI_GUARD_FAKE_PK");
+    setPk("");
+    alert("Logged out (local).");
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <h2>{isRegister ? "Register" : "Login"}</h2>
-        <form onSubmit={handleSubmit}>
-          {isRegister && (
-            <input type="text" placeholder="Full Name" required />
-          )}
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
-          {isRegister && <input type="text" placeholder="Wallet ID" required />}
-          <button type="submit">{isRegister ? "Sign Up" : "Login"}</button>
-        </form>
-        <p>
-          {isRegister ? "Already have an account?" : "New here?"}{" "}
-          <span onClick={() => setIsRegister(!isRegister)}>
-            {isRegister ? "Login" : "Register"}
-          </span>
-        </p>
-      </div>
+    <div style={{ padding:40 }}>
+      <h2>Login (dev)</h2>
+      <form onSubmit={save} style={{ maxWidth:420 }}>
+        <label>Public Key (Freighter or test)</label>
+        <input value={pk} onChange={(e)=>setPk(e.target.value)} style={{ width:"100%", padding:10, marginTop:8, borderRadius:8 }} placeholder="G..." />
+        <div style={{ marginTop:12 }}>
+          <button className="pill" style={{ marginRight:8 }} type="submit">Save</button>
+          <button className="pill" onClick={logout} type="button">Logout</button>
+        </div>
+      </form>
     </div>
   );
-};
-
-export default Login;
+}

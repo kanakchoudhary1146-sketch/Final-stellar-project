@@ -1,42 +1,30 @@
 import React, { useState } from "react";
-import "../styles/claim.css";
+import { claimInsurance } from "../blockchain/soroban";
+import "./dashboard.css";
 
-const Claim = () => {
-  const [policyId, setPolicyId] = useState("");
-  const [reason, setReason] = useState("");
+export default function Claim() {
+  const [policy, setPolicy] = useState("");
+  const [desc, setDesc] = useState("");
+  const adminPk = localStorage.getItem("DEFI_GUARD_FAKE_PK") || "";
 
-  const handleClaim = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    alert(`Claim request for Policy ${policyId} submitted!`);
+    if (!adminPk) return alert("Admin wallet required. Use Login and enter admin public key.");
+    const res = await claimInsurance(adminPk, policy, 150);
+    if (res.success) alert("Claim submitted (simulated).");
+    else alert("Failed: " + (res.error || "unknown"));
   };
 
   return (
-    <div className="claim-container">
-      <div className="claim-card">
-        <h2>Submit Claim</h2>
-        <form onSubmit={handleClaim}>
-          <label>Policy ID:</label>
-          <input
-            type="text"
-            value={policyId}
-            onChange={(e) => setPolicyId(e.target.value)}
-            placeholder="Enter policy ID"
-            required
-          />
-
-          <label>Reason for Claim:</label>
-          <textarea
-            value={reason}
-            onChange={(e) => setReason(e.target.value)}
-            placeholder="Describe your issue"
-            required
-          ></textarea>
-
-          <button type="submit">Submit Claim</button>
-        </form>
-      </div>
+    <div className="dashboard-wrap">
+      <h2>Submit Claim</h2>
+      <form onSubmit={submit} style={{ maxWidth:520 }}>
+        <label>Policy ID</label>
+        <input value={policy} onChange={(e)=>setPolicy(e.target.value)} placeholder="policy id" style={{ display:"block", padding:10, marginTop:8, width:"100%", borderRadius:8 }} />
+        <label style={{ marginTop:12 }}>Reason</label>
+        <textarea value={desc} onChange={(e)=>setDesc(e.target.value)} placeholder="reason" style={{ display:"block", padding:10, marginTop:8, width:"100%", height:120, borderRadius:8 }} />
+        <button className="pill" style={{ marginTop:14 }} type="submit">Submit Claim</button>
+      </form>
     </div>
   );
-};
-
-export default Claim;
+}

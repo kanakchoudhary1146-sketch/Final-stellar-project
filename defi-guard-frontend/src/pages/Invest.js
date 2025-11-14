@@ -1,41 +1,35 @@
 import React, { useState } from "react";
-import "../styles/invest.css";
+import { addFunds } from "../blockchain/soroban";
+import "./dashboard.css";
 
-const Invest = () => {
+export default function Invest() {
   const [pool, setPool] = useState("A");
   const [amount, setAmount] = useState("");
+  const pk = localStorage.getItem("DEFI_GUARD_FAKE_PK") || "";
 
-  const handleInvest = (e) => {
+  const onInvest = async (e) => {
     e.preventDefault();
-    alert(`You invested ${amount} XLM in Pool ${pool}!`);
+    if (!pk) return alert("Connect wallet first");
+    const res = await addFunds(pk, Number(amount || 0));
+    if (res.success) alert("Invested (simulated).");
+    else alert("Failed: " + (res.error || "unknown"));
   };
 
   return (
-    <div className="invest-container">
-      <div className="invest-card">
-        <h2>Invest in Insurance Pool</h2>
-        <form onSubmit={handleInvest}>
-          <label>Select Pool:</label>
-          <select value={pool} onChange={(e) => setPool(e.target.value)}>
-            <option value="A">Pool A</option>
-            <option value="B">Pool B</option>
-            <option value="C">Pool C</option>
-          </select>
+    <div className="dashboard-wrap">
+      <h2>Invest in Insurance Pool</h2>
+      <form onSubmit={onInvest} style={{ maxWidth:520 }}>
+        <label>Select Pool</label>
+        <select value={pool} onChange={(e)=>setPool(e.target.value)} style={{ display:"block", padding:10, marginTop:8, width:"100%", borderRadius:8 }}>
+          <option value="A">Pool A</option>
+          <option value="B">Pool B</option>
+        </select>
 
-          <label>Investment Amount (XLM):</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount"
-            required
-          />
+        <label style={{ marginTop:12 }}>Amount (XLM)</label>
+        <input value={amount} onChange={(e)=>setAmount(e.target.value)} placeholder="e.g. 1000" style={{ display:"block", padding:10, marginTop:8, width:"100%", borderRadius:8 }} />
 
-          <button type="submit">Invest</button>
-        </form>
-      </div>
+        <button className="pill" style={{ marginTop:14 }} type="submit">Invest</button>
+      </form>
     </div>
   );
-};
-
-export default Invest;
+}
